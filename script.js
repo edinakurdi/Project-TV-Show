@@ -45,6 +45,12 @@ function createEpisodeCard(episode) {
 }
 
 // create all cards
-function makePageForEpisodes() {}
+function makePageForEpisodes(episodeList) {
+  const rootElem = document.getElementById("root");
+
+  const episodeCards = episodeList.map(createEpisodeCard);
+
+  rootElem.append(...episodeCards);
+}
 
 window.onload = setup;
