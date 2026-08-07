@@ -39,7 +39,10 @@ function createEpisodeCard(episode) {
   image.src = episode.image.medium;
   image.alt = `Scene from ${episodeNumber}, ${episode.name}`;
 
-  card.querySelector("[data-summary]").innerHTML = episode.summary;
+  // remove the <p> tags from the summary
+  card.querySelector("[data-summary]").innerHTML = episode.summary
+    .replace(/<p>/gi, "")
+    .replace(/<\/p>/gi, "");
 
   return card;
 }
