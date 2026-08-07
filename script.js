@@ -1,18 +1,13 @@
-//You can edit ALL of the code here
+let allEpisodes = [];
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  allEpisodes = getAllEpisodes();
 
   // console.log(allEpisodes);
   // console.log(allEpisodes[0]);
 
   makePageForEpisodes(allEpisodes);
 }
-
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-}
-
 //create episode codes
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
@@ -50,9 +45,7 @@ function createEpisodeCard(episode) {
 // create all cards
 function makePageForEpisodes(episodeList) {
   const cardContainer = document.getElementById("card-container");
-
   const episodeCards = episodeList.map(createEpisodeCard);
-
   cardContainer.append(...episodeCards);
 }
 
