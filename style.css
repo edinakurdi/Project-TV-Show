@@ -8,8 +8,16 @@
 .search-bar {
   display: flex;
   flex-direction: row;
-  /* width: 70%; */
+  align-items: center;
   gap: 1rem;
+}
+
+#episode-select,
+#search {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 #card-container {
