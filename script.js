@@ -39,18 +39,21 @@ function createEpisodeCard(episode) {
   image.src = episode.image.medium;
   image.alt = `Scene from ${episodeNumber}, ${episode.name}`;
 
-  card.querySelector("[data-summary]").innerHTML = episode.summary;
+  // remove the <p> tags from the summary
+  card.querySelector("[data-summary]").innerHTML = episode.summary
+    .replace(/<p>/gi, "")
+    .replace(/<\/p>/gi, "");
 
   return card;
 }
 
 // create all cards
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+  const cardContainer = document.getElementById("card-container");
 
   const episodeCards = episodeList.map(createEpisodeCard);
 
-  rootElem.append(...episodeCards);
+  cardContainer.append(...episodeCards);
 }
 
 window.onload = setup;

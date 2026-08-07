@@ -1,4 +1,11 @@
 #root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+}
+
+#card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
