@@ -3,11 +3,9 @@ let allEpisodes = [];
 function setup() {
   allEpisodes = getAllEpisodes();
 
-  // console.log(allEpisodes);
-  // console.log(allEpisodes[0]);
-
   makePageForEpisodes(allEpisodes);
 }
+
 //create episode codes
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
@@ -15,9 +13,6 @@ function makeEpisodeCode(season, episodeNumber) {
   const code = "S" + season + "E" + episodeNumber;
   return code;
 }
-
-// console.log(makeEpisodeCode(2, 7)); // expected: S02E07
-// console.log(makeEpisodeCode(10, 3)); // expected: S10E03
 
 //create episode card
 const template = document.getElementById("episode-card");
@@ -42,11 +37,32 @@ function createEpisodeCard(episode) {
   return card;
 }
 
-// create all cards
+// create episode cards
 function makePageForEpisodes(episodeList) {
   const cardContainer = document.getElementById("card-container");
+  // clear existing cards displayed
+  cardContainer.innerHTML = "";
+
+  // create new cards from search result filtered list
   const episodeCards = episodeList.map(createEpisodeCard);
   cardContainer.append(...episodeCards);
+
+  // update count of displayed episodes
+  const countDisplay = document.getElementById("count-result");
+  countDisplay.textContent = `${episodeList.length}/${allEpisodes.length}`;
 }
+
+// search functionality
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", (event) => {
+  const searchValue = event.target.value;
+  const filteredEpisodes = allEpisodes.filter((episode) => {
+    return (
+      episode.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      episode.summary.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  });
+  makePageForEpisodes(filteredEpisodes);
+});
 
 window.onload = setup;
