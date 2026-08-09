@@ -83,7 +83,7 @@ function makePageForEpisodes(episodeList) {
 
   // update count of displayed episodes
   const countDisplay = document.getElementById("count-result");
-  countDisplay.textContent = `${episodeList.length}/${allEpisodes.length}`;
+  countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
 }
 
 // search and select elements
@@ -100,42 +100,31 @@ function populateEpisodeSelect(episodes) {
     })
     .join("");
 
+  //in the dropdown show "Show all" first, then add every generated episode option--> place oll in a dropdown
   episodeSelect.innerHTML =
     '<option value="all">Show all episodes</option>' + optionsHtml;
 }
 
 // search functionality
 searchInput.addEventListener("input", (event) => {
-  const searchValue = event.target.value;
+  state.searchTerm = event.target.value;
 
   // Reset selector dropdown to "Show all" when searching
-  episodeSelect.value = "all";
+  state.selectedEpisodeId.value = "all"; //updates the state
+  episodeSelect.value = "all"; //updates visible dropdown
 
-  const filteredEpisodes = allEpisodes.filter((episode) => {
-    return (
-      episode.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      episode.summary.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  });
-  makePageForEpisodes(filteredEpisodes);
+  render();
 });
 
 // episode selector change listener
 episodeSelect.addEventListener("change", (event) => {
-  const selectedValue = event.target.value;
+  state.selectedEpisodeId = event.target.value;
 
-  if (selectedValue === "all") {
-    makePageForEpisodes(allEpisodes);
-  } else {
-    const selectedEpisode = allEpisodes.find(
-      (episode) => String(episode.id) === selectedValue,
-    );
-    if (selectedEpisode) {
-      // Clear search box to avoid conflicting filter state
-      searchInput.value = "";
-      makePageForEpisodes([selectedEpisode]);
-    }
-  }
+  // Clear the search when using the dropdown
+  state.searchTerm = "";
+  searchInput.value = "";
+
+  render();
 });
 
 window.onload = setup;
