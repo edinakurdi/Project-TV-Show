@@ -1,13 +1,49 @@
-let allEpisodes = [];
+// -----------------------------------------------------
+// STATE AND  SETUP
+// -----------------------------------------------------
+const state = {
+  allEpisodes: [],
+  searchTerm: "",
+  selectedEpisodeId: "all",
+};
 
 function setup() {
-  allEpisodes = getAllEpisodes();
-
-  populateEpisodeSelect(allEpisodes);
-  makePageForEpisodes(allEpisodes);
+  state.allEpisodes = getAllEpisodes();
+  populateEpisodeSelect(state.allEpisodes);
+  render();
 }
 
-//create episode codes
+// -----------------------------------------------------
+// FILTER & RENDER EPISODES
+// -----------------------------------------------------
+
+function render() {
+  //NORMALISE: make search case-insensitive
+  const searchTerm = state.searchTerm.toLowerCase();
+
+  //FILTER EPISODES: create array that has only episodes where either the episode name OR the summary contains the search term
+  const filteredEpisodes = state.allEpisodes.filter((episode) => {
+    // If an episode is selected in dropdown, check that it matches
+    if (
+      state.selectedEpisodeId !== "all" &&
+      String(episode.id) !== state.selectedEpisodeId
+    ) {
+      return false;
+    }
+    const episodeName = episode.name.toLowerCase();
+    const episodeSummary = episode.summary.toLowerCase();
+
+    return (
+      episodeName.includes(searchTerm) || episodeSummary.includes(searchTerm)
+    );
+  });
+  makePageForEpisodes(filteredEpisodes);
+}
+
+// -----------------------------------------------------
+// EPISODE CODE
+// -----------------------------------------------------
+
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
   episodeNumber = String(episodeNumber).padStart(2, "0");
@@ -15,7 +51,10 @@ function makeEpisodeCode(season, episodeNumber) {
   return code;
 }
 
-//create episode card
+// -----------------------------------------------------
+// CREATE EPISODE CARD
+// -----------------------------------------------------
+
 const template = document.getElementById("episode-card");
 
 function createEpisodeCard(episode) {
@@ -38,9 +77,13 @@ function createEpisodeCard(episode) {
   return card;
 }
 
+// -----------------------------------------------------
+// PAGE DISPLAY
+// -----------------------------------------------------
+
 // create episode cards
 function makePageForEpisodes(episodeList) {
-  const cardContainer = document.getElementById("card-container");
+  const cardContainer = document.getElementById("root");
   // clear existing cards displayed
   cardContainer.innerHTML = "";
 
@@ -50,54 +93,61 @@ function makePageForEpisodes(episodeList) {
 
   // update count of displayed episodes
   const countDisplay = document.getElementById("count-result");
-  countDisplay.textContent = `${episodeList.length}/${allEpisodes.length}`;
+  countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
 }
 
-// search and select elements
+// -----------------------------------------------------
+// DOM ELEMENTS: SEARCH & SELECT
+// -----------------------------------------------------
+
 const searchInput = document.getElementById("search");
 const episodeSelect = document.getElementById("episode-select");
 
+// -----------------------------------------------------
+// EPISODE DROPDOWN
+// -----------------------------------------------------
+
 // populate selector with option elements
 function populateEpisodeSelect(episodes) {
-  const optionsHtml = episodes.map((episode) => {
-    const episodeCode = makeEpisodeCode(episode.season, episode.number);
-    const optionText = `${episodeCode} - ${episode.name}`;
-    return `<option value="${episode.id}">${optionText}</option>`;
-  }).join('');
+  const optionsHtml = episodes
+    .map((episode) => {
+      const episodeCode = makeEpisodeCode(episode.season, episode.number);
+      const optionText = `${episodeCode} - ${episode.name}`;
+      return `<option value="${episode.id}">${optionText}</option>`;
+    })
+    .join("");
 
-  episodeSelect.innerHTML = '<option value="all">Show all episodes</option>' + optionsHtml;
+  //in the dropdown show "Show all" first, then add every generated episode option--> place oll in a dropdown
+  episodeSelect.innerHTML =
+    '<option value="all">Show all episodes</option>' + optionsHtml;
 }
 
-// search functionality
+// -----------------------------------------------------
+// EVENT LISTENERS
+// -----------------------------------------------------
+// Update the search state whenever the user types
 searchInput.addEventListener("input", (event) => {
-  const searchValue = event.target.value;
+  state.searchTerm = event.target.value;
 
   // Reset selector dropdown to "Show all" when searching
-  episodeSelect.value = "all";
+  state.selectedEpisodeId = "all"; //updates the state
+  episodeSelect.value = "all"; //updates visible dropdown
 
-  const filteredEpisodes = allEpisodes.filter((episode) => {
-    return (
-      episode.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      episode.summary.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  });
-  makePageForEpisodes(filteredEpisodes);
+  render();
 });
 
-// episode selector change listener
+// Update the selected episode when the dropdown changes
 episodeSelect.addEventListener("change", (event) => {
-  const selectedValue = event.target.value;
+  state.selectedEpisodeId = event.target.value;
 
-  if (selectedValue === "all") {
-    makePageForEpisodes(allEpisodes);
-  } else {
-    const selectedEpisode = allEpisodes.find((episode) => String(episode.id) === selectedValue);
-    if (selectedEpisode) {
-      // Clear search box to avoid conflicting filter state
-      searchInput.value = "";
-      makePageForEpisodes([selectedEpisode]);
-    }
-  }
+  // Clear both the stored and visible search value
+  state.searchTerm = "";
+  searchInput.value = "";
+
+  render();
 });
 
+// -----------------------------------------------------
+// START APPLICATION
+// -----------------------------------------------------
 window.onload = setup;
