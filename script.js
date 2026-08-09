@@ -4,13 +4,40 @@
 const state = {
   allEpisodes: [],
   searchTerm: "",
-  selectedEpisodeID: "all",
+  selectedEpisodeId: "all",
 };
 
 function setup() {
   state.allEpisodes = getAllEpisodes();
   populateEpisodeSelect(state.allEpisodes);
   render();
+}
+
+// -----------------------------------------------------
+// RENDER
+// -----------------------------------------------------
+
+function render() {
+  //NORMALISE: make search case-insensitive
+  const searchTerm = state.searchTerm.toLowerCase();
+
+  //FILTER EPISODES: create array that has only episodes where either the episode name OR the summary contains the search term
+  const filteredEpisodes = state.allEpisodes.filter((episode) => {
+    // If an episode is selected in dropdown, check that it matches
+    if (
+      state.selectedEpisodeId !== "all" &&
+      String(episode.id) !== state.selectedEpisodeId
+    ) {
+      return false;
+    }
+    const episodeName = episode.name.toLowerCase();
+    const episodeSummary = episode.summary.toLowerCase();
+
+    return (
+      episodeName.includes(searchTerm) || episodeSummary.includes(searchTerm)
+    );
+  });
+  makePageForEpisodes(filteredEpisodes);
 }
 
 //create episode codes
