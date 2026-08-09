@@ -1,5 +1,5 @@
 // -----------------------------------------------------
-// STATE
+// STATE AND  SETUP
 // -----------------------------------------------------
 const state = {
   allEpisodes: [],
@@ -14,7 +14,7 @@ function setup() {
 }
 
 // -----------------------------------------------------
-// RENDER
+// FILTER & RENDER EPISODES
 // -----------------------------------------------------
 
 function render() {
@@ -40,7 +40,10 @@ function render() {
   makePageForEpisodes(filteredEpisodes);
 }
 
-//create episode codes
+// -----------------------------------------------------
+// EPISODE CODE
+// -----------------------------------------------------
+
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
   episodeNumber = String(episodeNumber).padStart(2, "0");
@@ -48,7 +51,10 @@ function makeEpisodeCode(season, episodeNumber) {
   return code;
 }
 
-//create episode card
+// -----------------------------------------------------
+// CREATE EPISODE CARD
+// -----------------------------------------------------
+
 const template = document.getElementById("episode-card");
 
 function createEpisodeCard(episode) {
@@ -71,6 +77,10 @@ function createEpisodeCard(episode) {
   return card;
 }
 
+// -----------------------------------------------------
+// PAGE DISPLAY
+// -----------------------------------------------------
+
 // create episode cards
 function makePageForEpisodes(episodeList) {
   const cardContainer = document.getElementById("root");
@@ -86,9 +96,16 @@ function makePageForEpisodes(episodeList) {
   countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
 }
 
-// search and select elements
+// -----------------------------------------------------
+// DOM ELEMENTS: SEARCH & SELECT
+// -----------------------------------------------------
+
 const searchInput = document.getElementById("search");
 const episodeSelect = document.getElementById("episode-select");
+
+// -----------------------------------------------------
+// EPISODE DROPDOWN
+// -----------------------------------------------------
 
 // populate selector with option elements
 function populateEpisodeSelect(episodes) {
@@ -105,7 +122,10 @@ function populateEpisodeSelect(episodes) {
     '<option value="all">Show all episodes</option>' + optionsHtml;
 }
 
-// search functionality
+// -----------------------------------------------------
+// EVENT LISTENERS
+// -----------------------------------------------------
+// Update the search state whenever the user types
 searchInput.addEventListener("input", (event) => {
   state.searchTerm = event.target.value;
 
@@ -116,15 +136,18 @@ searchInput.addEventListener("input", (event) => {
   render();
 });
 
-// episode selector change listener
+// Update the selected episode when the dropdown changes
 episodeSelect.addEventListener("change", (event) => {
   state.selectedEpisodeId = event.target.value;
 
-  // Clear the search when using the dropdown
+  // Clear both the stored and visible search value
   state.searchTerm = "";
   searchInput.value = "";
 
   render();
 });
 
+// -----------------------------------------------------
+// START APPLICATION
+// -----------------------------------------------------
 window.onload = setup;
