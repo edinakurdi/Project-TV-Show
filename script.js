@@ -110,7 +110,7 @@ searchInput.addEventListener("input", (event) => {
   state.searchTerm = event.target.value;
 
   // Reset selector dropdown to "Show all" when searching
-  state.selectedEpisodeId.value = "all"; //updates the state
+  state.selectedEpisodeId = "all"; //updates the state
   episodeSelect.value = "all"; //updates visible dropdown
 
   render();
