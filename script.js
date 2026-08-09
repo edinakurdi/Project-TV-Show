@@ -1,10 +1,16 @@
-let allEpisodes = [];
+// -----------------------------------------------------
+// STATE
+// -----------------------------------------------------
+const state = {
+  allEpisodes: [],
+  searchTerm: "",
+  selectedEpisodeID: "all",
+};
 
 function setup() {
-  allEpisodes = getAllEpisodes();
-
-  populateEpisodeSelect(allEpisodes);
-  makePageForEpisodes(allEpisodes);
+  state.allEpisodes = getAllEpisodes();
+  populateEpisodeSelect(state.allEpisodes);
+  render();
 }
 
 //create episode codes
@@ -40,7 +46,7 @@ function createEpisodeCard(episode) {
 
 // create episode cards
 function makePageForEpisodes(episodeList) {
-  const cardContainer = document.getElementById("card-container");
+  const cardContainer = document.getElementById("root");
   // clear existing cards displayed
   cardContainer.innerHTML = "";
 
@@ -59,13 +65,16 @@ const episodeSelect = document.getElementById("episode-select");
 
 // populate selector with option elements
 function populateEpisodeSelect(episodes) {
-  const optionsHtml = episodes.map((episode) => {
-    const episodeCode = makeEpisodeCode(episode.season, episode.number);
-    const optionText = `${episodeCode} - ${episode.name}`;
-    return `<option value="${episode.id}">${optionText}</option>`;
-  }).join('');
+  const optionsHtml = episodes
+    .map((episode) => {
+      const episodeCode = makeEpisodeCode(episode.season, episode.number);
+      const optionText = `${episodeCode} - ${episode.name}`;
+      return `<option value="${episode.id}">${optionText}</option>`;
+    })
+    .join("");
 
-  episodeSelect.innerHTML = '<option value="all">Show all episodes</option>' + optionsHtml;
+  episodeSelect.innerHTML =
+    '<option value="all">Show all episodes</option>' + optionsHtml;
 }
 
 // search functionality
@@ -91,7 +100,9 @@ episodeSelect.addEventListener("change", (event) => {
   if (selectedValue === "all") {
     makePageForEpisodes(allEpisodes);
   } else {
-    const selectedEpisode = allEpisodes.find((episode) => String(episode.id) === selectedValue);
+    const selectedEpisode = allEpisodes.find(
+      (episode) => String(episode.id) === selectedValue,
+    );
     if (selectedEpisode) {
       // Clear search box to avoid conflicting filter state
       searchInput.value = "";
