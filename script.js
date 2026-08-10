@@ -1,5 +1,5 @@
 // -----------------------------------------------------
-// STATE AND  SETUP
+// STATE
 // -----------------------------------------------------
 const state = {
   allEpisodes: [],
@@ -7,11 +7,29 @@ const state = {
   selectedEpisodeId: "all",
 };
 
-function setup() {
-  state.allEpisodes = getAllEpisodes();
+// -----------------------------------------------------
+// ENDPOINT
+// -----------------------------------------------------
+const endpoint = "https://api.tvmaze.com/shows/82/episodes";
+
+// -----------------------------------------------------
+// SETUP
+// -----------------------------------------------------
+
+async function setup() {
+  state.allEpisodes = await fetchEpisodes();
   populateEpisodeSelect(state.allEpisodes);
   render();
 }
+
+// -----------------------------------------------------
+// FETCH EPISODES FROM API
+// -----------------------------------------------------
+
+const fetchEpisodes = async () => {
+  const response = await fetch(endpoint);
+  return await response.json();
+};
 
 // -----------------------------------------------------
 // FILTER & RENDER EPISODES
