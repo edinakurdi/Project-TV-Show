@@ -17,9 +17,14 @@ const endpoint = "https://api.tvmaze.com/shows/82/episodes";
 // -----------------------------------------------------
 
 async function setup() {
-  state.allEpisodes = await fetchEpisodes();
-  populateEpisodeSelect(state.allEpisodes);
-  render();
+  try {
+    state.allEpisodes = await fetchEpisodes();
+    populateEpisodeSelect(state.allEpisodes);
+    render();
+  } catch {
+    const errorContainer = document.getElementById("root");
+    errorContainer.textContent = "Error loading page";
+  }
 }
 
 // -----------------------------------------------------
