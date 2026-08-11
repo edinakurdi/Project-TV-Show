@@ -22,7 +22,7 @@ async function setup() {
     populateEpisodeSelect(state.allEpisodes);
     render();
   } catch {
-    const errorContainer = document.getElementById("root");
+    const errorContainer = document.getElementById("card-container");
     errorContainer.textContent = "Error loading page";
   }
 }
@@ -106,7 +106,7 @@ function createEpisodeCard(episode) {
 
 // create episode cards
 function makePageForEpisodes(episodeList) {
-  const cardContainer = document.getElementById("root");
+  const cardContainer = document.getElementById("card-container");
   // clear existing cards displayed
   cardContainer.innerHTML = "";
 
