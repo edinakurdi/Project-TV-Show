@@ -12,6 +12,7 @@
   gap: 1rem;
 }
 
+#show-select,
 #episode-select,
 #search {
   padding: 0.5rem;

@@ -11,6 +11,11 @@
 
 <body>
   <header class="controls-bar">
+    <label for="show-select">Choose a show</label>
+    <select id="show-select">
+      <option value="">Select a show...</option>
+    </select>
+
     <label for="episode-select">Choose an episode</label>
     <select id="episode-select">
       <option value="all">Show all episodes</option>
@@ -23,7 +28,7 @@
   </header>
 
 
-  <main id="root"> Loading episodes...</main>
+  <main id="card-container"> Loading episodes...</main>
 
   <template id="episode-card">
     <section class="episode-card">
