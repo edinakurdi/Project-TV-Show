@@ -88,11 +88,11 @@ async function setup() {
     cardContainer.textContent = "Loading shows...";
 
     state.allShows = await fetchShows();
-    populateShowSelect(state.allShows);
+    // populateShowSelect(state.allShows);
 
-    if (state.allShows.length > 0) {
-      await selectShow(state.allShows[0].id);
-    }
+    // if (state.allShows.length > 0) {
+    //   await selectShow(state.allShows[0].id);
+    // }
   } catch (error) {
     const errorContainer = document.getElementById("card-container");
     errorContainer.textContent = "Error loading page";
