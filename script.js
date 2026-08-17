@@ -5,8 +5,11 @@ const state = {
   allShows: [],
   selectedShowId: "",
   allEpisodes: [],
-  searchTerm: "",
+
+  showSearchTerm: "",
+  episodeSearchTerm: "",
   selectedEpisodeId: "all",
+
   cache: {},
 };
 
@@ -18,10 +21,12 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // -----------------------------------------------------
 // DOM ELEMENTS
 // -----------------------------------------------------
-const showSelect = document.getElementById("show-select");
-const searchInput = document.getElementById("search");
+// const showSelect = document.getElementById("show-select");
+const episodeSearchInput = document.getElementById("search");
 const episodeSelect = document.getElementById("episode-select");
 const template = document.getElementById("episode-card");
+const showsView = document.getElementById("shows-view");
+const episodesView = document.getElementById("episodes-view");
 
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
@@ -60,8 +65,8 @@ async function selectShow(showId) {
   showSelect.value = String(showId);
 
   // Reset search and episode dropdown state
-  state.searchTerm = "";
-  searchInput.value = "";
+  state.episodeSearchTerm = "";
+  episodeSearchInput.value = "";
   state.selectedEpisodeId = "all";
   episodeSelect.value = "all";
 
@@ -124,7 +129,7 @@ function populateEpisodeSelect(episodes) {
 // -----------------------------------------------------
 
 function render() {
-  const searchTerm = state.searchTerm.toLowerCase();
+  const episodeSearchTerm = state.episodeSearchTerm.toLowerCase();
 
   const filteredEpisodes = state.allEpisodes.filter((episode) => {
     if (
@@ -137,7 +142,8 @@ function render() {
     const episodeSummary = episode.summary ? episode.summary.toLowerCase() : "";
 
     return (
-      episodeName.includes(searchTerm) || episodeSummary.includes(searchTerm)
+      episodeName.includes(episodeSearchTerm) ||
+      episodeSummary.includes(episodeSearchTerm)
     );
   });
   makePageForEpisodes(filteredEpisodes);
@@ -204,8 +210,8 @@ showSelect.addEventListener("change", (event) => {
   }
 });
 
-searchInput.addEventListener("input", (event) => {
-  state.searchTerm = event.target.value;
+episodeSearchInput.addEventListener("input", (event) => {
+  state.episodeSearchTerm = event.target.value;
 
   state.selectedEpisodeId = "all";
   episodeSelect.value = "all";
@@ -216,8 +222,8 @@ searchInput.addEventListener("input", (event) => {
 episodeSelect.addEventListener("change", (event) => {
   state.selectedEpisodeId = event.target.value;
 
-  state.searchTerm = "";
-  searchInput.value = "";
+  state.episodeSearchTerm = "";
+  episodeSearchInput.value = "";
 
   render();
 });
