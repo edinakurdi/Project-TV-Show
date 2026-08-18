@@ -151,9 +151,21 @@ function render() {
 }
 
 // -----------------------------------------------------
-// EPISODE CODE & CARD GENERATION
+// SHOW GENERATION
+// -----------------------------------------------------
+function createShowCard(show) {
+  const card = showTemplate.content.cloneNode(true);
+
+  card.querySelector("[data-show-name]").textContent = show.name;
+
+  return card;
+}
+
+// -----------------------------------------------------
+// CARD GENERATION
 // -----------------------------------------------------
 
+// EPISODE CODE
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
   episodeNumber = String(episodeNumber).padStart(2, "0");
