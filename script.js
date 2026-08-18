@@ -170,12 +170,8 @@ function createShowCard(show) {
     ? show.summary.replace(/<p>/gi, "").replace(/<\/p>/gi, "")
     : "No summary available";
 
-  if (show.genres.length > 0) {
-    card.querySelector("[data-show-genres]").textContent =
-      `Genres: ${show.genres.join(", ")}`;
-  } else {
-    card.querySelector("[data-show-genres").textContent = "No genres listed";
-  }
+  card.querySelector("[data-show-genres]").textContent =
+    `Genres: ${show.genres.length > 0 ? show.genres.join(", ") : "No genres listed"}`;
 
   card.querySelector("[data-show-status]").textContent =
     `Status: ${show.status || "N/A"}`;
