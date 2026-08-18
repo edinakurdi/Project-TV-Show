@@ -28,7 +28,7 @@ const showTemplate = document.getElementById("show-card");
 const episodeTemplate = document.getElementById("episode-card");
 const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
-//template
+const showsContainer = document.getElementById("shows-container");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -89,6 +89,7 @@ async function setup() {
     cardContainer.textContent = "Loading shows...";
 
     state.allShows = await fetchShows();
+    renderShows();
     // populateShowSelect(state.allShows);
 
     // if (state.allShows.length > 0) {
@@ -125,6 +126,16 @@ function populateEpisodeSelect(episodes) {
     '<option value="all">Show all episodes</option>' + optionsHtml;
 }
 
+// -----------------------------------------------------
+// RENDER SHOWS
+// -----------------------------------------------------
+function renderShows() {
+  showsContainer.innerHTML = "";
+
+  const showCards = state.allShows.map(createShowCard);
+
+  showsContainer.append(...showCards);
+}
 // -----------------------------------------------------
 // FILTER & RENDER EPISODES
 // -----------------------------------------------------
@@ -239,12 +250,12 @@ function makePageForEpisodes(episodeList) {
 // EVENT LISTENERS
 // -----------------------------------------------------
 
-showSelect.addEventListener("change", (event) => {
-  const showId = event.target.value;
-  if (showId) {
-    selectShow(showId);
-  }
-});
+// showSelect.addEventListener("change", (event) => {
+//   const showId = event.target.value;
+//   if (showId) {
+//     selectShow(showId);
+//   }
+// });
 
 episodeSearchInput.addEventListener("input", (event) => {
   state.episodeSearchTerm = event.target.value;
