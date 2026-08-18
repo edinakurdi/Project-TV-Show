@@ -160,13 +160,11 @@ function createShowCard(show) {
 
   const image = card.querySelector("img");
 
-  if (show.image && show.image.medium) {
-    image.src = show.image.medium;
-    image.alt = `Scene from ${show.name}`;
-  } else {
-    image.src = "";
-    image.alt = `No image available for ${show.name}`;
-  }
+  const hasImg = show.image?.medium;
+  image.src = hasImg ? show.image.medium : "";
+  image.alt = hasImg
+    ? `Scene from ${show.name}`
+    : `No images available for ${show.name}`;
 
   card.querySelector("[data-show-summary]").innerHTML = show.summary
     ? show.summary.replace(/<p>/gi, "").replace(/<\/p>/gi, "")
@@ -212,14 +210,12 @@ function createEpisodeCard(episode) {
   card.querySelector("[data-episode-number]").textContent = episodeNumber;
 
   const image = card.querySelector("img");
+  const hasImg = episode.image?.medium;
 
-  if (episode.image && episode.image.medium) {
-    image.src = episode.image.medium;
-    image.alt = `Scene from ${episodeNumber}, ${episode.name}`;
-  } else {
-    image.src = "";
-    image.alt = `No image available for ${episode.name}`;
-  }
+  image.src = hasImg ? episode.image.medium : "";
+  image.alt = hasImg
+    ? `Scene from ${episodeNumber}, ${episode.name}`
+    : `No images available for ${episode.name}`;
 
   card.querySelector("[data-summary]").innerHTML = episode.summary
     ? episode.summary.replace(/<p>/gi, "").replace(/<\/p>/gi, "")
