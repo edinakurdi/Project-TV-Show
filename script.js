@@ -276,6 +276,11 @@ episodeSelect.addEventListener("change", (event) => {
   render();
 });
 
+showSearchInput.addEventListener("input", (event) => {
+  state.showSearchInput = event.target.value;
+
+  renderShows();
+});
 // -----------------------------------------------------
 // START APPLICATION
 // -----------------------------------------------------
