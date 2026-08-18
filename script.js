@@ -158,6 +158,37 @@ function createShowCard(show) {
 
   card.querySelector("[data-show-name]").textContent = show.name;
 
+  const image = card.querySelector("img");
+
+  if (show.image && show.image.medium) {
+    image.src = show.image.medium;
+    image.alt = `Scene from ${show.name}`;
+  } else {
+    image.src = "";
+    image.alt = `No image available for ${show.name}`;
+  }
+
+  card.querySelector("[data-show-summary]").innerHTML = show.summary
+    ? show.summary.replace(/<p>/gi, "").replace(/<\/p>/gi, "")
+    : "No summary available";
+
+  if (show.genres.length > 0) {
+    card.querySelector("[data-show-genres]").textContent =
+      `Genres: ${show.genres.join(", ")}`;
+  } else {
+    card.querySelector("[data-show-genres").textContent = "No genres listed";
+  }
+
+  card.querySelector("[data-show-status]").textContent =
+    `Status: ${show.status || "N/A"}`;
+
+  card.querySelector("[data-show-rating]").textContent =
+    `Rating: ${show.rating?.average || "N/A"} `;
+
+  const runtimeText = show.runtime ? `${show.runtime} minutes` : "N/A";
+  card.querySelector("[data-show-runtime]").textContent =
+    `Runtime: ${runtimeText}`;
+
   return card;
 }
 
@@ -181,7 +212,7 @@ function createEpisodeCard(episode) {
   card.querySelector("[data-episode-number]").textContent = episodeNumber;
 
   const image = card.querySelector("img");
-  // TODO: checking if the image exists and has a medium size before displaying it <-- remove this comment
+
   if (episode.image && episode.image.medium) {
     image.src = episode.image.medium;
     image.alt = `Scene from ${episodeNumber}, ${episode.name}`;
