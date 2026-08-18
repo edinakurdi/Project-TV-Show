@@ -24,8 +24,8 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // const showSelect = document.getElementById("show-select");
 const episodeSearchInput = document.getElementById("search");
 const episodeSelect = document.getElementById("episode-select");
-const showCard = document.getElementById("show-card");
-const template = document.getElementById("episode-card");
+const showTemplate = document.getElementById("show-card");
+const episodeTemplate = document.getElementById("episode-card");
 const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 
