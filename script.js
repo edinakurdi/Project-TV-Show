@@ -29,6 +29,7 @@ const episodeTemplate = document.getElementById("episode-card");
 const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 const showsContainer = document.getElementById("shows-container");
+const showSearchInput = document.getElementById("show-search");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
