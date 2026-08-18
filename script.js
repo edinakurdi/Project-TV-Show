@@ -28,7 +28,7 @@ const showTemplate = document.getElementById("show-card");
 const episodeTemplate = document.getElementById("episode-card");
 const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
-
+//template
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -161,7 +161,7 @@ function makeEpisodeCode(season, episodeNumber) {
 }
 
 function createEpisodeCard(episode) {
-  const card = template.content.cloneNode(true);
+  const card = episodeTemplate.content.cloneNode(true);
 
   card.querySelector("h2").textContent = episode.name;
 
