@@ -21,7 +21,6 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // -----------------------------------------------------
 // DOM ELEMENTS
 // -----------------------------------------------------
-// const showSelect = document.getElementById("show-select");
 const episodeSearchInput = document.getElementById("search");
 const episodeSelect = document.getElementById("episode-select");
 const showTemplate = document.getElementById("show-card");
@@ -35,7 +34,6 @@ const backToShowsButton = document.getElementById("back-to-shows-btn");
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
 
-// TODO: fetchWithCache is used to cache fetch requests so that we don't have to fetch the same data twice
 async function fetchWithCache(url) {
   if (state.cache[url]) {
     return state.cache[url];
@@ -53,7 +51,6 @@ async function fetchShows() {
   const shows = await fetchWithCache(showsEndpoint);
   // Sort shows alphabetically
   return shows.sort((a, b) =>
-    // TODO: localeCompare is used to compare strings alphabetically, case-insensitive <-- remove this comment
     a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
   );
 }
@@ -98,11 +95,6 @@ async function setup() {
 
     state.allShows = await fetchShows();
     renderShows();
-    // populateShowSelect(state.allShows);
-
-    // if (state.allShows.length > 0) {
-    //   await selectShow(state.allShows[0].id);
-    // }
   } catch (error) {
     const errorContainer = document.getElementById("card-container");
     errorContainer.textContent = "Error loading page";
@@ -229,7 +221,7 @@ function createShowCard(show) {
 function makeEpisodeCode(season, episodeNumber) {
   season = String(season).padStart(2, "0");
   episodeNumber = String(episodeNumber).padStart(2, "0");
-  return "S" + season + "E" + episodeNumber; // TODO: rather than creating a variable for code, we could just return the value from the padStart method. <-- remove this comment
+  return "S" + season + "E" + episodeNumber;
 }
 
 function createEpisodeCard(episode) {
@@ -250,7 +242,7 @@ function createEpisodeCard(episode) {
 
   card.querySelector("[data-summary]").innerHTML = episode.summary
     ? episode.summary.replace(/<p>/gi, "").replace(/<\/p>/gi, "")
-    : "No summary available."; // TODO: Use optional chaining to check if the summary exists, or display "No summary available." <-- remove this comment
+    : "No summary available.";
 
   return card;
 }
@@ -274,12 +266,6 @@ function makePageForEpisodes(episodeList) {
 // EVENT LISTENERS
 // -----------------------------------------------------
 
-// showSelect.addEventListener("change", (event) => {
-//   const showId = event.target.value;
-//   if (showId) {
-//     selectShow(showId);
-//   }
-// });
 showsContainer.addEventListener("click", (event) => {
   const showId = event.target.dataset.showId;
 
