@@ -1,37 +1,92 @@
-#root {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem;
-  gap: 1rem;
+body {
+  font-family: sans-serif;
+  background-color: #f0fdfa;
+  color: #333;
+  margin: 0;
+  padding: 1rem;
+
 }
 
-.search-bar {
+header,
+footer {
+  background-color: teal;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+footer {
+  margin-top: 2rem;
+}
+
+footer a {
+  color: #a7f3d0;
+}
+
+
+.controls-bar {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  margin: 1rem 0;
 }
 
-#show-select,
-#episode-select,
-#search {
+#shows-container,
+#episodes-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.show-card,
+.episode-card {
+  background: white;
+  border: 1px solid #b2dfdb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.show-card img {
+  aspect-ratio: 2/3;
+}
+
+.episode-card img {
+  aspect-ratio: 16/9;
+}
+
+button,
+select,
+input {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
-#card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+button {
+  background-color: teal;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-section {
-  border: 1px solid;
-  padding: 1rem;
+[data-show-name] {
+  background: none;
+  color: teal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0;
 }
 
-.hidden {
+/* .hidden {
   display: none;
-}
+} */

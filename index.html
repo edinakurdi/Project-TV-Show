@@ -10,25 +10,55 @@
 </head>
 
 <body>
-  <header class="controls-bar">
-    <label for="show-select">Choose a show</label>
-    <select id="show-select">
-      <option value="">Select a show...</option>
-    </select>
-
-    <label for="episode-select">Choose an episode</label>
-    <select id="episode-select">
-      <option value="all">Show all episodes</option>
-    </select>
-
-    <label for="search">Search</label>
-    <input type="text" id="search" placeholder="Search episodes...">
-
-    <p id="count">Displaying <span id="count-result">0</span> episodes</p>
+  <header>
+    <h1>TV Show Project</h1>
   </header>
+  <main>
+
+    <section id="shows-view">
+      <label for="show-search">Search shows</label>
+      <input type="text" id="show-search" placeholder="Search shows">
+
+      <div id="shows-container"></div>
+    </section>
+
+    <section id="episodes-view">
+      <button type="button" id="back-to-shows-btn">Back to shows</button>
+
+      <div class="controls-bar">
+
+        <label for="episode-select">Choose an episode</label>
+        <select id="episode-select">
+          <option value="all">Show all episodes</option>
+        </select>
+
+        <label for="episode-search">Search</label>
+        <input type="text" id="episode-search" placeholder="Search episodes...">
+
+        <p id="count">Displaying <span id="count-result">0</span> episodes</p>
+      </div>
 
 
-  <main id="card-container"> Loading episodes...</main>
+      <div id="episodes-container"> Loading episodes...</div>
+
+    </section>
+
+  </main>
+
+  <template id="show-card">
+    <section class="show-card">
+      <h2>
+        <button type="button" data-show-name>Show title</button>
+      </h2>
+      <img data-show-img src="" alt="">
+      <p data-show-genres>Genres</p>
+      <p data-show-status>Status</p>
+      <p data-show-rating>Rating</p>
+      <p data-show-runtime>Runtime</p>
+      <div data-show-summary>Summary</div>
+    </section>
+
+  </template>
 
   <template id="episode-card">
     <section class="episode-card">
