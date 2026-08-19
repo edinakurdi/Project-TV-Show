@@ -133,7 +133,7 @@ function populateEpisodeSelect(episodes) {
 function renderShows() {
   const searchTerm = state.showSearchTerm.toLowerCase();
 
-  const filteredShows = state.allshows.filter((show) => {
+  const filteredShows = state.allShows.filter((show) => {
     const showName = show.name ? show.name.toLowerCase() : "";
     const showSummary = show.summary ? show.summary.toLowerCase() : "";
     const showGenres = show.genres.join(" ").toLowerCase();
