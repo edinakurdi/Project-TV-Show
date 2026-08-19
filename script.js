@@ -182,7 +182,9 @@ function render() {
 function createShowCard(show) {
   const card = showTemplate.content.cloneNode(true);
 
-  card.querySelector("[data-show-name]").textContent = show.name;
+  const showNameButton = card.querySelector("[data-show-name]");
+  showNameButton.textContent = show.name;
+  showNameButton.dataset.showId = show.id;
 
   const image = card.querySelector("img");
 
