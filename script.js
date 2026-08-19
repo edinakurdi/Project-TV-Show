@@ -105,14 +105,6 @@ async function setup() {
 // SHOW & EPISODE DROPDOWNS
 // -----------------------------------------------------
 
-function populateShowSelect(shows) {
-  const optionsHtml = shows
-    .map((show) => `<option value="${show.id}">${show.name}</option>`)
-    .join("");
-
-  showSelect.innerHTML = optionsHtml;
-}
-
 function populateEpisodeSelect(episodes) {
   const optionsHtml = episodes
     .map((episode) => {
