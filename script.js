@@ -75,7 +75,7 @@ async function selectShow(showId) {
   state.selectedEpisodeId = "all";
   episodeSelect.value = "all";
 
-  const cardContainer = document.getElementById("card-container");
+  const cardContainer = document.getElementById("episodes-container");
   cardContainer.textContent = "Loading episodes...";
 
   try {
@@ -89,7 +89,7 @@ async function selectShow(showId) {
 
 async function setup() {
   try {
-    const cardContainer = document.getElementById("card-container");
+    const cardContainer = document.getElementById("episodes-container");
     cardContainer.textContent = "Loading shows...";
 
     showsView.hidden = false;
@@ -98,7 +98,7 @@ async function setup() {
     state.allShows = await fetchShows();
     renderShows();
   } catch (error) {
-    const errorContainer = document.getElementById("card-container");
+    const errorContainer = document.getElementById("episodes-container");
     errorContainer.textContent = "Error loading page";
   }
 }
@@ -246,7 +246,7 @@ function createEpisodeCard(episode) {
 // -----------------------------------------------------
 
 function makePageForEpisodes(episodeList) {
-  const cardContainer = document.getElementById("card-container");
+  const cardContainer = document.getElementById("episodes-container");
   cardContainer.innerHTML = "";
 
   const episodeCards = episodeList.map(createEpisodeCard);
