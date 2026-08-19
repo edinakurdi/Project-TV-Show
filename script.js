@@ -131,6 +131,20 @@ function populateEpisodeSelect(episodes) {
 // RENDER SHOWS
 // -----------------------------------------------------
 function renderShows() {
+  const searchTerm = state.showSearchTerm.toLowerCase();
+
+  const filteredShows = state.allshows.filter((show) => {
+    const showName = show.name ? show.name.toLowerCase() : "";
+    const showSummary = show.summary ? show.summary.toLowerCase() : "";
+    const showGenres = show.genres.join(" ").toLowerCase();
+
+    return (
+      showName.includes(searchTerm) ||
+      showSummary.includes(searchTerm) ||
+      showGenres.includes(searchTerm)
+    );
+  });
+
   showsContainer.innerHTML = "";
 
   const showCards = state.allShows.map(createShowCard);
