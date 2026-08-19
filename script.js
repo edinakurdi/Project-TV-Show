@@ -10,6 +10,8 @@ const state = {
   episodeSearchTerm: "",
   selectedEpisodeId: "all",
 
+  currentView: "shows",
+
   cache: {},
 };
 
