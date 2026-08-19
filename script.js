@@ -81,7 +81,7 @@ async function selectShow(showId) {
   try {
     state.allEpisodes = await fetchEpisodesForShow(showId);
     populateEpisodeSelect(state.allEpisodes);
-    render();
+    renderEpisodes();
   } catch (error) {
     cardContainer.textContent = "Error loading episodes";
   }
@@ -148,7 +148,7 @@ function renderShows() {
 // FILTER & RENDER EPISODES
 // -----------------------------------------------------
 
-function render() {
+function renderEpisodes() {
   const episodeSearchTerm = state.episodeSearchTerm.toLowerCase();
 
   const filteredEpisodes = state.allEpisodes.filter((episode) => {
@@ -280,7 +280,7 @@ episodeSearchInput.addEventListener("input", (event) => {
   state.selectedEpisodeId = "all";
   episodeSelect.value = "all";
 
-  render();
+  renderEpisodes();
 });
 
 episodeSelect.addEventListener("change", (event) => {
@@ -289,7 +289,7 @@ episodeSelect.addEventListener("change", (event) => {
   state.episodeSearchTerm = "";
   episodeSearchInput.value = "";
 
-  render();
+  renderEpisodes();
 });
 
 showSearchInput.addEventListener("input", (event) => {
