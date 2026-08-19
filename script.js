@@ -31,7 +31,7 @@ const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 const showsContainer = document.getElementById("shows-container");
 const showSearchInput = document.getElementById("show-search");
-const backToShowsButton = document.getElementById("back-to-shows-btn");
+const backToShowsBtn = document.getElementById("back-to-shows-btn");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -175,9 +175,9 @@ function render() {
 function createShowCard(show) {
   const card = showTemplate.content.cloneNode(true);
 
-  const showNameButton = card.querySelector("[data-show-name]");
-  showNameButton.textContent = show.name;
-  showNameButton.dataset.showId = show.id;
+  const showNameBtn = card.querySelector("[data-show-name]");
+  showNameBtn.textContent = show.name;
+  showNameBtn.dataset.showId = show.id;
 
   const image = card.querySelector("img");
 
@@ -268,7 +268,7 @@ showsContainer.addEventListener("click", (event) => {
   }
 });
 
-backToShowsButton.addEventListener("click", () => {
+backToShowsBtn.addEventListener("click", () => {
   state.currentView = "shows";
 
   episodesView.hidden = true;
