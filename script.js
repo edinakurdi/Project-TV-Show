@@ -30,6 +30,7 @@ const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 const showsContainer = document.getElementById("shows-container");
 const showSearchInput = document.getElementById("show-search");
+const backToShowsButton = document.getElementById("back-to-shows-btn");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
