@@ -288,6 +288,12 @@ showsContainer.addEventListener("click", (event) => {
   }
 });
 
+backToShowsButton.addEventListener("click", () => {
+  state.currentView = "shows";
+
+  episodesView.hidden = true;
+  showsView.hidden = false;
+});
 episodeSearchInput.addEventListener("input", (event) => {
   state.episodeSearchTerm = event.target.value;
 
