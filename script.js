@@ -273,6 +273,13 @@ function makePageForEpisodes(episodeList) {
 //     selectShow(showId);
 //   }
 // });
+showContainer.addEventListener("click", (event) => {
+  const showId = event.target.dataset.showId;
+
+  if (showId) {
+    selectShow(showId);
+  }
+});
 
 episodeSearchInput.addEventListener("input", (event) => {
   state.episodeSearchTerm = event.target.value;
