@@ -30,6 +30,8 @@ const episodeTemplate = document.getElementById("episode-card");
 const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 const showsContainer = document.getElementById("shows-container");
+const episodesContainer = document.getElementById("episodes-container");
+
 const showSearchInput = document.getElementById("show-search");
 const backToShowsBtn = document.getElementById("back-to-shows-btn");
 // -----------------------------------------------------
@@ -75,22 +77,20 @@ async function selectShow(showId) {
   state.selectedEpisodeId = "all";
   episodeSelect.value = "all";
 
-  const cardContainer = document.getElementById("episodes-container");
-  cardContainer.textContent = "Loading episodes...";
+  episodesContainer.textContent = "Loading episodes...";
 
   try {
     state.allEpisodes = await fetchEpisodesForShow(showId);
     populateEpisodeSelect(state.allEpisodes);
     renderEpisodes();
   } catch (error) {
-    cardContainer.textContent = "Error loading episodes";
+    episodesContainer.textContent = "Error loading episodes";
   }
 }
 
 async function setup() {
   try {
-    const cardContainer = document.getElementById("episodes-container");
-    cardContainer.textContent = "Loading shows...";
+    showsContainer.textContent = "Loading shows...";
 
     showsView.hidden = false;
     episodesView.hidden = true;
@@ -98,8 +98,7 @@ async function setup() {
     state.allShows = await fetchShows();
     renderShows();
   } catch (error) {
-    const errorContainer = document.getElementById("episodes-container");
-    errorContainer.textContent = "Error loading page";
+    showsContainer.textContent = "Error loading page";
   }
 }
 
@@ -246,11 +245,11 @@ function createEpisodeCard(episode) {
 // -----------------------------------------------------
 
 function makePageForEpisodes(episodeList) {
-  const cardContainer = document.getElementById("episodes-container");
-  cardContainer.innerHTML = "";
+  const episodesContainer = document.getElementById("episodes-container");
+  episodesContainer.innerHTML = "";
 
   const episodeCards = episodeList.map(createEpisodeCard);
-  cardContainer.append(...episodeCards);
+  episodesContainer.append(...episodeCards);
 
   const countDisplay = document.getElementById("count-result");
   countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
