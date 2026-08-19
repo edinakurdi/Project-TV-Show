@@ -64,7 +64,10 @@ async function fetchEpisodesForShow(showId) {
 
 async function selectShow(showId) {
   state.selectedShowId = String(showId);
-  showSelect.value = String(showId);
+
+  state.currentView = "episodes";
+  showsView.hidden = true;
+  episodesView.hidden = false;
 
   // Reset search and episode dropdown state
   state.episodeSearchTerm = "";
@@ -88,6 +91,9 @@ async function setup() {
   try {
     const cardContainer = document.getElementById("card-container");
     cardContainer.textContent = "Loading shows...";
+
+    showsView.hidden = false;
+    episodesView.hidden = true;
 
     state.allShows = await fetchShows();
     renderShows();
