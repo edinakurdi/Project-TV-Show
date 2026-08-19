@@ -31,7 +31,6 @@ const showsView = document.getElementById("shows-view");
 const episodesView = document.getElementById("episodes-view");
 const showsContainer = document.getElementById("shows-container");
 const episodesContainer = document.getElementById("episodes-container");
-
 const showSearchInput = document.getElementById("show-search");
 const backToShowsBtn = document.getElementById("back-to-shows-btn");
 // -----------------------------------------------------
@@ -245,7 +244,6 @@ function createEpisodeCard(episode) {
 // -----------------------------------------------------
 
 function makePageForEpisodes(episodeList) {
-  const episodesContainer = document.getElementById("episodes-container");
   episodesContainer.innerHTML = "";
 
   const episodeCards = episodeList.map(createEpisodeCard);
