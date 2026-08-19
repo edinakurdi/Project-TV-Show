@@ -23,7 +23,7 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // -----------------------------------------------------
 // DOM ELEMENTS
 // -----------------------------------------------------
-const episodeSearchInput = document.getElementById("search");
+const episodeSearchInput = document.getElementById("episode-search");
 const episodeSelect = document.getElementById("episode-select");
 const showTemplate = document.getElementById("show-card");
 const episodeTemplate = document.getElementById("episode-card");
