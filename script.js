@@ -147,7 +147,7 @@ function renderShows() {
 
   showsContainer.innerHTML = "";
 
-  const showCards = state.allShows.map(createShowCard);
+  const showCards = filteredShows.map(createShowCard);
 
   showsContainer.append(...showCards);
 }
@@ -293,7 +293,7 @@ episodeSelect.addEventListener("change", (event) => {
 });
 
 showSearchInput.addEventListener("input", (event) => {
-  state.showSearchInput = event.target.value;
+  state.showSearchTerm = event.target.value;
 
   renderShows();
 });
