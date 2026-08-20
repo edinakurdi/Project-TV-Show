@@ -293,6 +293,18 @@ episodeSearchInput.addEventListener("input", (event) => {
   renderEpisodes();
 });
 
+showSelect.addEventListener("change", (event) => {
+  const selectedShow = event.target.value;
+
+  if (selectedShow === "all") {
+    state.currentView = "shows";
+    episodeView.hidden = true;
+    showsView.hidden = false;
+  } else {
+    selectShow(selectedShow);
+  }
+});
+
 episodeSelect.addEventListener("change", (event) => {
   state.selectedEpisodeId = event.target.value;
 
