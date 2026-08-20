@@ -24,6 +24,7 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // DOM ELEMENTS
 // -----------------------------------------------------
 const episodeSearchInput = document.getElementById("episode-search");
+const showSelect = document.getElementById("show-select");
 const episodeSelect = document.getElementById("episode-select");
 const showTemplate = document.getElementById("show-card");
 const episodeTemplate = document.getElementById("episode-card");
@@ -33,6 +34,9 @@ const showsContainer = document.getElementById("shows-container");
 const episodesContainer = document.getElementById("episodes-container");
 const showSearchInput = document.getElementById("show-search");
 const backToShowsBtn = document.getElementById("back-to-shows-btn");
+const showCountDisplay = document.getElementById("show-count-result");
+const episodeCountDisplay = document.getElementById("episode-count-result"); //TODO -update this in html to add "episode" to the id
+
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -95,6 +99,7 @@ async function setup() {
     episodesView.hidden = true;
 
     state.allShows = await fetchShows();
+    populateShowSelect(state.allShows);
     renderShows();
   } catch (error) {
     showsContainer.textContent = "Error loading page";
@@ -141,6 +146,8 @@ function renderShows() {
   const showCards = filteredShows.map(createShowCard);
 
   showsContainer.append(...showCards);
+
+  showCountDisplay.textContent = `${filteredShow.length}/${state.allShows.length}`;
 }
 // -----------------------------------------------------
 // FILTER & RENDER EPISODES
@@ -249,8 +256,7 @@ function makePageForEpisodes(episodeList) {
   const episodeCards = episodeList.map(createEpisodeCard);
   episodesContainer.append(...episodeCards);
 
-  const countDisplay = document.getElementById("count-result");
-  countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
+  episodeCountDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
 }
 
 // -----------------------------------------------------
