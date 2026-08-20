@@ -35,8 +35,7 @@ const episodesContainer = document.getElementById("episodes-container");
 const showSearchInput = document.getElementById("show-search");
 const backToShowsBtn = document.getElementById("back-to-shows-btn");
 const showCountDisplay = document.getElementById("show-count-result");
-const episodeCountDisplay = document.getElementById("episode-count-result"); //TODO -update this in html to add "episode" to the id
-
+const episodeCountDisplay = document.getElementById("episode-count-result");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -109,6 +108,14 @@ async function setup() {
 // -----------------------------------------------------
 // SHOW & EPISODE DROPDOWNS
 // -----------------------------------------------------
+function populateShowSelect(shows) {
+  const optionsHtml = shows
+    .map((show) => `<option value="${show.id}">${show.name}</option>`)
+    .join("");
+
+  showSelect.innerHTML =
+    '<option value="all">Show all shows</option>' + optionsHtml;
+}
 
 function populateEpisodeSelect(episodes) {
   const optionsHtml = episodes
@@ -147,7 +154,7 @@ function renderShows() {
 
   showsContainer.append(...showCards);
 
-  showCountDisplay.textContent = `${filteredShow.length}/${state.allShows.length}`;
+  showCountDisplay.textContent = `${filteredShows.length}/${state.allShows.length}`;
 }
 // -----------------------------------------------------
 // FILTER & RENDER EPISODES
