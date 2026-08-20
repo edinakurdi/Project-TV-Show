@@ -24,6 +24,7 @@ const showsEndpoint = "https://api.tvmaze.com/shows";
 // DOM ELEMENTS
 // -----------------------------------------------------
 const episodeSearchInput = document.getElementById("episode-search");
+const showSelect = document.getElementById("show-select");
 const episodeSelect = document.getElementById("episode-select");
 const showTemplate = document.getElementById("show-card");
 const episodeTemplate = document.getElementById("episode-card");
@@ -33,6 +34,8 @@ const showsContainer = document.getElementById("shows-container");
 const episodesContainer = document.getElementById("episodes-container");
 const showSearchInput = document.getElementById("show-search");
 const backToShowsBtn = document.getElementById("back-to-shows-btn");
+const showCountDisplay = document.getElementById("show-count-result");
+const episodeCountDisplay = document.getElementById("episode-count-result");
 // -----------------------------------------------------
 // SETUP & FETCH WITH CACHE
 // -----------------------------------------------------
@@ -65,6 +68,7 @@ async function fetchEpisodesForShow(showId) {
 
 async function selectShow(showId) {
   state.selectedShowId = String(showId);
+  showSelect.value = String(showId);
 
   state.currentView = "episodes";
   showsView.hidden = true;
@@ -95,6 +99,7 @@ async function setup() {
     episodesView.hidden = true;
 
     state.allShows = await fetchShows();
+    populateShowSelect(state.allShows);
     renderShows();
   } catch (error) {
     showsContainer.textContent = "Error loading page";
@@ -104,6 +109,14 @@ async function setup() {
 // -----------------------------------------------------
 // SHOW & EPISODE DROPDOWNS
 // -----------------------------------------------------
+function populateShowSelect(shows) {
+  const optionsHtml = shows
+    .map((show) => `<option value="${show.id}">${show.name}</option>`)
+    .join("");
+
+  showSelect.innerHTML =
+    '<option value="all">Show all shows</option>' + optionsHtml;
+}
 
 function populateEpisodeSelect(episodes) {
   const optionsHtml = episodes
@@ -141,6 +154,8 @@ function renderShows() {
   const showCards = filteredShows.map(createShowCard);
 
   showsContainer.append(...showCards);
+
+  showCountDisplay.textContent = `${filteredShows.length}/${state.allShows.length}`;
 }
 // -----------------------------------------------------
 // FILTER & RENDER EPISODES
@@ -249,8 +264,7 @@ function makePageForEpisodes(episodeList) {
   const episodeCards = episodeList.map(createEpisodeCard);
   episodesContainer.append(...episodeCards);
 
-  const countDisplay = document.getElementById("count-result");
-  countDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
+  episodeCountDisplay.textContent = `${episodeList.length}/${state.allEpisodes.length}`;
 }
 
 // -----------------------------------------------------
@@ -267,6 +281,7 @@ showsContainer.addEventListener("click", (event) => {
 
 backToShowsBtn.addEventListener("click", () => {
   state.currentView = "shows";
+  showSelect.value = "all";
 
   episodesView.hidden = true;
   showsView.hidden = false;
@@ -278,6 +293,18 @@ episodeSearchInput.addEventListener("input", (event) => {
   episodeSelect.value = "all";
 
   renderEpisodes();
+});
+
+showSelect.addEventListener("change", (event) => {
+  const selectedShow = event.target.value;
+
+  if (selectedShow === "all") {
+    state.currentView = "shows";
+    episodeView.hidden = true;
+    showsView.hidden = false;
+  } else {
+    selectShow(selectedShow);
+  }
 });
 
 episodeSelect.addEventListener("change", (event) => {
