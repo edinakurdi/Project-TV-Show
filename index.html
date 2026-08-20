@@ -16,10 +16,23 @@
   <main>
 
     <section id="shows-view">
-      <label for="show-search">Search shows</label>
-      <input type="text" id="show-search" placeholder="Search shows">
+
+      <div class="controls-bar">
+
+        <label for="show-select">Choose a show</label>
+        <select id="show-select">
+          <option value="all">Show all shows</option>
+        </select>
+
+        <label for="show-search">Search shows</label>
+        <input type="text" id="show-search" placeholder="Search shows">
+
+        <p id="shows-count">Displaying <span id="shows-count-result">0</span> shows</p>
+
+      </div>
 
       <div id="shows-container"></div>
+
     </section>
 
     <section id="episodes-view">
